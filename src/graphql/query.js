@@ -14,4 +14,17 @@ query MyQuery {
 }
 `
 
-export {getJobs}
+
+const getJobData = gql`
+query getJobData($slug: String!)  {
+  job(where: {slug: $slug }) {
+    advantages
+    category
+    company
+    id
+    jobTitle
+  }
+}
+`
+
+export {getJobs,getJobData}

@@ -12,7 +12,7 @@ export default function JobsList() {
   return (
     <Grid container>
       {data.jobs.map((item) => (
-        <Link to="" style={{ width: "100%",color:"black",textDecoration:"none" }} key={item.id}>
+        <Link to={`/job/${item.slug}`} style={{ width: "100%",color:"black",textDecoration:"none" }} key={item.id}>
           <Grid
             item
             sx={{display:"flex", borderRadius:"10px", padding: "15px", width: "100%" }}
