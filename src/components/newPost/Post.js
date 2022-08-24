@@ -69,10 +69,11 @@ export default function Post() {
     });
     setCooprationType([]);
     sendJob();
+    setSendData(true)
 };
 if (data && sendData) {
     toast.success(" اگهی ارسال شد و منتظر تایید است");
-  
+  console.log(data)
     setSendData(false);
   } 
 
