@@ -1,15 +1,14 @@
 import React from "react";
 import { Grid, Container, Typography } from "@mui/material";
 import JobsList from "../jobs/JobsList";
-import ShowJob from "../jobs/ShowJob";
-import { Routes, Route } from "react-router";
+
 
 export default function Home() {
   return (
     <div>
       <Container maxWidth="lg">
         <Grid container mt={3}   minHeight="100vh">
-          <Grid item xs={12} md={4}pl={2}>
+          <Grid item xs={12} md={4} pl={2}>
             <JobsList />
           </Grid>
 

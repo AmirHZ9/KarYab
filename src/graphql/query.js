@@ -1,11 +1,11 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 const getJobs = gql`
 query MyQuery {
   jobs {
     id
     jobTitle
-    slug
+    slugs
     company
     advantages
     workDays
@@ -16,8 +16,8 @@ query MyQuery {
 
 
 const getJobData = gql`
-query getJobData($slug: String!)  {
-  job(where: {slug: $slug }) {
+query getJobData($slugs: String!)  {
+  job(where: {slugs: $slugs }) {
     advantages
     category
     company
