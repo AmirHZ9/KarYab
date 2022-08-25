@@ -29,7 +29,7 @@ export default function Home() {
               margin=" auto"
               mt={5}
             >
-              asdf
+               جهت مشاهده اطلاعات آگهی شغلی یکی از موارد را از سمت راست انتخاب کنید. 
             </Typography>
           </Grid>
         </Grid>
