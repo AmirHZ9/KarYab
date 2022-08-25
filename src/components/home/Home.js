@@ -1,13 +1,16 @@
 import React from "react";
-import { Grid, Container, Typography } from "@mui/material";
+import { Route, Routes } from "react-router";
+import { Grid, Container } from "@mui/material";
 import JobsList from "../jobs/JobsList";
+import ShowJob from "../jobs/ShowJob";
 
 
 export default function Home() {
+    
   return (
     <div>
       <Container maxWidth="lg">
-        <Grid container mt={3}   minHeight="100vh">
+        <Grid container mt={3} minHeight="100vh" mb={3}>
           <Grid item xs={12} md={4} pl={2}>
             <JobsList />
           </Grid>
@@ -16,21 +19,12 @@ export default function Home() {
             item
             xs={12}
             md={8}
-            textAlign="center"
             borderRadius="10px"
-            minHeight="100vh"
-                bgcolor="white"
-            >
-            <Typography
-              component="p"
-              variant="p"
-              width="50%"
-              color="#8e9cb2"
-              margin=" auto"
-              mt={5}
-            >
-               جهت مشاهده اطلاعات آگهی شغلی یکی از موارد را از سمت راست انتخاب کنید. 
-            </Typography>
+
+          >
+            <Routes>
+              <Route path="/job/:slug" element={<ShowJob />} />
+            </Routes>
           </Grid>
         </Grid>
       </Container>

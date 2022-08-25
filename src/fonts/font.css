@@ -1,0 +1,20 @@
+@font-face {
+    font-family: yekan;
+    src: url('yekan-font/Yekan.eot');
+    src: url('yekan-font/Yekan.eot') format('yekan-font-opentype'),
+         url('yekan-font/Yekan.woff') format('woff'),
+         url('yekan-font/Yekan.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+@font-face {
+    font-family: vaziri;
+    src: url('vazir-font/Vazir-Bold.eot');
+    src: url('vazir-font/Vazir-Light.eot') format('yekan-font-opentype'),
+         url('vazir-font/Vazir-Bold.woff') format('woff'),
+         url('vazir-font/Vazir-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  

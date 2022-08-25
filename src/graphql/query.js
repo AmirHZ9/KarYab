@@ -3,13 +3,20 @@ import { gql } from "@apollo/client";
 const getJobs = gql`
 query MyQuery {
   jobs {
-    id
-    jobTitle
-    slugs
-    company
-    advantages
-    workDays
     category
+    citys
+    company
+    companyDescription
+    cooprationType
+    description{
+      html
+    }
+    enCompany
+    experience
+    jobTitle
+    salary
+    id
+    slugs
   }
 }
 `
@@ -18,11 +25,19 @@ query MyQuery {
 const getJobData = gql`
 query getJobData($slugs: String!)  {
   job(where: {slugs: $slugs }) {
-    advantages
     category
     company
     id
     jobTitle
+    citys
+    companyDescription
+    cooprationType
+    description{
+      html
+    }
+    enCompany
+    experience
+    salary
   }
 }
 `

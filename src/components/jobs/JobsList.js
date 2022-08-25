@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export default function JobsList() {
   const { data, loading, error } = useQuery(getJobs);
 
-  console.log(data);
+
   if (!data) return <h1>loading</h1>;
   return (
     <Grid container >

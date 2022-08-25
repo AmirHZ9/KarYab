@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 // graphql
 import { useMutation } from "@apollo/client";
 import { SENDJOB } from "../../graphql/mutation";
@@ -40,6 +40,10 @@ export default function Post() {
     category: "",
     companyDescription: "",
     experience: "",
+    military: "",
+    degree: "",
+    sex: "",
+    technology: "",
   });
 
   //!mutation
@@ -85,36 +89,46 @@ export default function Post() {
       [event.target.name]: true,
     });
   };
-
   //! sendhandler
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const sendHandler = (event) => {
-    if (!postData.category || !postData.experience || !cooprationType) {
+    if (
+      !postData.category ||
+      !postData.experience ||
+      !cooprationType ||
+      !postData.sex ||
+      !postData.military ||
+      !postData.degree ||
+      !postData.technology
+    ) {
       setFocus({
         category: true,
         experience: true,
         cooprationType: true,
+        sex: true,
+        military: true,
+        degree: true,
+        technology: true,
       });
     }
     if (!Object.keys(error).length) {
       sendJob();
       setSendData(true);
-    }else if(Object.keys(error).length){
-
+    } else if (Object.keys(error).length) {
       toast.error(".تمامی فیلدها باید پر شوند");
     }
   };
   if (data && sendData) {
-    toast.success('ارسال شد')
-    const path = "/confirmation"
-    navigate(path)
+    toast.success("ارسال شد");
+    const path = "/confirmation";
+    navigate(path);
     setSendData(false);
   }
 
   return (
     <RTL>
       <Container maxWidth="lg">
-        <Grid container spacing={2} mt={2} mb={2}>
+        <Grid container spacing={2} mt={2} mb={2} minHeight="100vh">
           <Grid item xs={12}>
             <TextField
               label="عنوان شغل"
@@ -236,7 +250,7 @@ export default function Post() {
                 onChange={changeHandler}
                 onFocus={focusHandler}
               >
-                <MenuItem value="notImportant">مهم نیست</MenuItem>
+                <MenuItem value="مهم نیست">مهم نیست</MenuItem>
                 <MenuItem value="کمتر از 3 سال">کمتر از 3 سال</MenuItem>
                 <MenuItem value="بین 3 تا 6 سال">بین 3 تا 6 سال</MenuItem>
                 <MenuItem value="بیشتر از 6 سال">بیشتر از 6 سال</MenuItem>
@@ -289,6 +303,149 @@ export default function Post() {
                 >
                   {" "}
                   {error.cooprationType}
+                </Typography>
+              )}
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <FormControl sx={{ width: "100%" }}>
+              <InputLabel id="demo-multiple-name-label">جنسیت</InputLabel>
+              <Select
+                labelId="demo-multiple-name-label"
+                id="demo-multiple-name"
+                value={postData.sex}
+                onChange={changeHandler}
+                onFocus={focusHandler}
+                label="جنسیت"
+                name="sex"
+              >
+                <MenuItem value="مرد">مرد</MenuItem>
+                <MenuItem value="زن">زن</MenuItem>
+              </Select>
+            </FormControl>
+            <Box>
+              {error.sex && focus.sex && (
+                <Typography
+                  component="p"
+                  variant="p"
+                  color="red"
+                  display="flex"
+                  alignItems="center"
+                >
+                  {error.sex}
+                </Typography>
+              )}
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <FormControl sx={{ width: "100%" }}>
+              <InputLabel id="demo-multiple-name-label">
+                {" "}
+                حداقل مدرک تحصیلی
+              </InputLabel>
+              <Select
+                labelId="demo-multiple-name-label"
+                id="demo-multiple-name"
+                value={postData.degree}
+                onChange={changeHandler}
+                onFocus={focusHandler}
+                label=" حداقل مدرک تحصیلی"
+                name="degree"
+              >
+                <MenuItem value="مهم نیست">مهم نیست</MenuItem>
+                <MenuItem value="دیپلم">دیپلم</MenuItem>
+                <MenuItem value="لیسانس">لیسانس</MenuItem>
+                <MenuItem value="فوق لیسانس">فوق لیسانس</MenuItem>
+                <MenuItem value="دکتری">دکتری</MenuItem>
+              </Select>
+            </FormControl>
+            <Box>
+              {error.degree && focus.degree && (
+                <Typography
+                  component="p"
+                  variant="p"
+                  color="red"
+                  display="flex"
+                  alignItems="center"
+                >
+                  {error.degree}
+                </Typography>
+              )}
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <FormControl sx={{ width: "100%" }}>
+              <InputLabel id="demo-multiple-name-label">
+                {" "}
+                وضعیت نظام وظیفه
+              </InputLabel>
+              <Select
+                labelId="demo-multiple-name-label"
+                id="demo-multiple-name"
+                value={postData.military}
+                onChange={changeHandler}
+                onFocus={focusHandler}
+                label=" وضعیت نظام وظیفه"
+                name="military"
+              >
+                <MenuItem value="مهم نیست">مهم نیست</MenuItem>
+                <MenuItem value="معافیت دائم">معافیت دائم</MenuItem>
+                <MenuItem value="معافیت تحصیلی">معافیت تحصیلی</MenuItem>
+                <MenuItem value="معافیت پزشکی">معافیت پزشکی</MenuItem>
+                <MenuItem value="پایان خدمت">پایان خدمت</MenuItem>
+              </Select>
+            </FormControl>
+            <Box>
+              {error.military && focus.military && (
+                <Typography
+                  component="p"
+                  variant="p"
+                  color="red"
+                  display="flex"
+                  alignItems="center"
+                >
+                  {" "}
+                  {error.military}
+                </Typography>
+              )}
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <FormControl sx={{ width: "100%" }}>
+              <InputLabel id="demo-multiple-name-label">
+                مهارت های مورد نیاز
+              </InputLabel>
+              <Select
+                labelId="demo-multiple-name-label"
+                id="demo-multiple-name"
+                value={postData.technology}
+                onChange={changeHandler}
+                onFocus={focusHandler}
+                label="مهارت های مورد نیاز"
+                name="technology"
+              >
+                {types.map((type) => (
+                  <MenuItem key={type} value={type}>
+                    {type}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Box>
+              {error.technology && focus.technology && (
+                <Typography
+                  component="p"
+                  variant="p"
+                  color="red"
+                  display="flex"
+                  alignItems="center"
+                >
+                  {" "}
+                  {error.technology}
                 </Typography>
               )}
             </Box>

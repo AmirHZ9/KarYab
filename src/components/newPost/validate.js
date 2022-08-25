@@ -47,7 +47,36 @@ const validation = (data, cooprationType) => {
     error.experience = "حداقل سابقه کار را مشخص کنید.";
   } else {
     delete error.experience;
+ }
+
+ // militay
+  if (!data.military.trim()) {
+    error.military = "وضعیت نظام وظیفه  را مشخص کنید.";
+  } else {
+    delete error.military;
   }
+
+  // degree
+  if (!data.degree.trim()) {
+    error.degree = "مدرک تحصیلی را مشخص کنید.";
+  } else {
+    delete error.degree;
+  }
+  // sex
+  if (!data.sex.trim()) {
+    error.sex = "جنسیت را مشخص کنید.";
+  } else {
+    delete error.sex;
+  }
+  // technology
+  if (!data.technology.trim()) {
+    error.technology = "حداقل یک مهارت  را مشخص کنید.";
+  } else {
+    delete error.technology;
+  }
+
+  
+
 
 //   cooprationType
   if (!cooprationType.length) {

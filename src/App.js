@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router";
-import "./App.css"
+import "./fonts/font.css";
+import "./App.css";
 import Home from "./components/home/Home";
 import ShowJob from "./components/jobs/ShowJob";
 import ConfirmationPostedJob from "./components/newPost/ConfrmationPostedJob";
@@ -8,17 +9,16 @@ import Index from "./layout/Index";
 
 function App() {
   return (
-    
-    <div >
-
-        <Index>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/job/:slug/*" element={<ShowJob />} />
-            <Route path="/newJob" element={<Post />} />
-            <Route path="/confirmation" element={<ConfirmationPostedJob/>}/>          </Routes>
-        </Index>
-  
+    <div>
+      <Index>
+        {/* <Home/> */}
+        <Routes>
+          <Route path="*" element={<Home />} />
+          {/* <Route path="/job/:slug/" element={<ShowJob />} /> */}
+          <Route path="/newJob" element={<Post />} />
+          <Route path="/confirmation" element={<ConfirmationPostedJob />} />
+        </Routes>
+      </Index>
     </div>
   );
 }
