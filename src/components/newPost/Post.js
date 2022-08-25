@@ -105,6 +105,7 @@ export default function Post() {
     }
   };
   if (data && sendData) {
+    toast.success('ارسال شد')
     const path = "/confirmation"
     navigate(path)
     setSendData(false);
