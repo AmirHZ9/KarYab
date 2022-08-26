@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// graphql
+// * graphql
 import { useMutation } from "@apollo/client";
 import { SENDJOB } from "../../graphql/mutation";
 
-// validation
+// ? validation
 import validation from "./validate";
 
+//* list
+import { militaryList, types, techList } from "./List";
 //? styles material
 import {
   Grid,
@@ -27,8 +29,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Post() {
-  const types = ["دورکاری", "تمام وقت", "حضوری", "پاره وقت"];
   const [cooprationType, setCooprationType] = useState([]);
+  const [military, setMilitary] = useState([]);
+  const [technology, setTechnology] = useState([]);
   const [sendData, setSendData] = useState(true);
   const [error, setError] = useState({});
   const [focus, setFocus] = useState(false);
@@ -43,7 +46,8 @@ export default function Post() {
     military: "",
     degree: "",
     sex: "",
-    technology: "",
+    salary: "",
+    citys: "",
   });
 
   //!mutation
@@ -57,16 +61,41 @@ export default function Post() {
       category: postData.category,
       companyDescription: postData.companyDescription,
       experience: postData.experience,
-      slugs: postData.enCompany,
+      slugs: postData.enCompany.replace(/\s/g, '').toLowerCase(),
+      citys: postData.citys,
+      degree: postData.degree,
+      militaryService: military.toString(),
+      salary: postData.salary,
+      sex: postData.sex,
+      technology: technology.toString(),
     },
+
   });
   //!UseEffect
   useEffect(() => {
-    setError(validation(postData, cooprationType));
+    setError(validation(postData, cooprationType, military, technology));
   }, [postData, cooprationType]);
 
   //!ChangeHandler
   const changeHandler = (event) => {
+    if (event.target.name === "military") {
+      const {
+        target: { value },
+      } = event;
+      setMilitary(
+        // On autofill we get a stringified value.
+        typeof value === "string" ? value.split(",") : value
+      );
+    }
+    if (event.target.name === "technology") {
+      const {
+        target: { value },
+      } = event;
+      setTechnology(
+        // On autofill we get a stringified value.
+        typeof value === "string" ? value.split(",") : value
+      );
+    }
     if (event.target.name === "cooprationType") {
       const {
         target: { value },
@@ -154,6 +183,7 @@ export default function Post() {
               )}
             </Box>
           </Grid>
+
           <Grid item xs={12} md={6}>
             <TextField
               label=" عنوان شرکت (به فارسی)"
@@ -179,6 +209,7 @@ export default function Post() {
               )}
             </Box>
           </Grid>
+
           <Grid item xs={12} md={6}>
             <TextField
               label=" عنوان شرکت (به انگلیسی)"
@@ -186,6 +217,31 @@ export default function Post() {
               sx={{ width: "100%" }}
               value={postData.enCompany}
               name="enCompany"
+              onChange={changeHandler}
+              onFocus={focusHandler}
+            />
+            <Box>
+              {error.enCompany && focus.enCompany && (
+                <Typography
+                  component="p"
+                  variant="p"
+                  color="red"
+                  display="flex"
+                  alignItems="center"
+                >
+                  {" "}
+                  {error.enCompany}
+                </Typography>
+              )}
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              label=" استان"
+              variant="outlined"
+              sx={{ width: "100%" }}
+              value={postData.citys}
+              name="citys"
               onChange={changeHandler}
               onFocus={focusHandler}
             />
@@ -320,6 +376,7 @@ export default function Post() {
                 label="جنسیت"
                 name="sex"
               >
+                <MenuItem value="مهم نیست">مهم نیست</MenuItem>
                 <MenuItem value="مرد">مرد</MenuItem>
                 <MenuItem value="زن">زن</MenuItem>
               </Select>
@@ -379,23 +436,23 @@ export default function Post() {
           <Grid item xs={12} md={6}>
             <FormControl sx={{ width: "100%" }}>
               <InputLabel id="demo-multiple-name-label">
-                {" "}
                 وضعیت نظام وظیفه
               </InputLabel>
               <Select
                 labelId="demo-multiple-name-label"
                 id="demo-multiple-name"
-                value={postData.military}
+                value={military}
                 onChange={changeHandler}
                 onFocus={focusHandler}
                 label=" وضعیت نظام وظیفه"
                 name="military"
+                multiple
               >
-                <MenuItem value="مهم نیست">مهم نیست</MenuItem>
-                <MenuItem value="معافیت دائم">معافیت دائم</MenuItem>
-                <MenuItem value="معافیت تحصیلی">معافیت تحصیلی</MenuItem>
-                <MenuItem value="معافیت پزشکی">معافیت پزشکی</MenuItem>
-                <MenuItem value="پایان خدمت">پایان خدمت</MenuItem>
+                {militaryList.map((type) => (
+                  <MenuItem key={type} value={type}>
+                    {type}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
             <Box>
@@ -415,24 +472,59 @@ export default function Post() {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <FormControl sx={{ width: "100%" }}>
+            <FormControl sx={{ width: "100%" ,}}>
               <InputLabel id="demo-multiple-name-label">
                 مهارت های مورد نیاز
               </InputLabel>
               <Select
                 labelId="demo-multiple-name-label"
                 id="demo-multiple-name"
-                value={postData.technology}
+                value={technology}
                 onChange={changeHandler}
                 onFocus={focusHandler}
                 label="مهارت های مورد نیاز"
                 name="technology"
+                multiple
+               
               >
-                {types.map((type) => (
+                {techList.map((type) => (
                   <MenuItem key={type} value={type}>
                     {type}
                   </MenuItem>
                 ))}
+              </Select>
+            </FormControl>
+            <Box>
+              {error.technology && focus.technology && (
+                <Typography
+                  component="p"
+                  variant="p"
+                  color="red"
+                  display="flex"
+                  alignItems="center"
+                >
+                  {" "}
+                  {error.technology}
+                </Typography>
+              )}
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl sx={{ width: "100%" }}>
+              <InputLabel id="demo-multiple-name-label">حداقل حقوق</InputLabel>
+              <Select
+                labelId="demo-multiple-name-label"
+                id="demo-multiple-name"
+                value={postData.salary}
+                onChange={changeHandler}
+                onFocus={focusHandler}
+                label="حداقل حقوق"
+                name="salary"
+              >
+                <MenuItem value="توافقی">توافقی</MenuItem>
+                <MenuItem value=" 5,000,000">5,000,000</MenuItem>
+                <MenuItem value="  10,000,000 ">10,000,000</MenuItem>
+                <MenuItem value=" 20,000,000 ">20,000,000</MenuItem>
               </Select>
             </FormControl>
             <Box>

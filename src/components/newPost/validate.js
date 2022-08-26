@@ -1,4 +1,4 @@
-const validation = (data, cooprationType) => {
+const validation = (data, cooprationType,military,technology) => {
   const error = {};
 
   //companyFa
@@ -50,7 +50,7 @@ const validation = (data, cooprationType) => {
  }
 
  // militay
-  if (!data.military.trim()) {
+  if (!military.length) {
     error.military = "وضعیت نظام وظیفه  را مشخص کنید.";
   } else {
     delete error.military;
@@ -69,7 +69,7 @@ const validation = (data, cooprationType) => {
     delete error.sex;
   }
   // technology
-  if (!data.technology.trim()) {
+  if (!technology.length) {
     error.technology = "حداقل یک مهارت  را مشخص کنید.";
   } else {
     delete error.technology;

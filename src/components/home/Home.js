@@ -23,7 +23,7 @@ export default function Home() {
 
           >
             <Routes>
-              <Route path="/job/:slug" element={<ShowJob />} />
+              <Route path="/job/:slug/:id" element={<ShowJob />} />
             </Routes>
           </Grid>
         </Grid>

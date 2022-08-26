@@ -8,9 +8,7 @@ query MyQuery {
     company
     companyDescription
     cooprationType
-    description{
-      html
-    }
+    description
     enCompany
     experience
     jobTitle
@@ -23,21 +21,23 @@ query MyQuery {
 
 
 const getJobData = gql`
-query getJobData($slugs: String!)  {
-  job(where: {slugs: $slugs }) {
-    category
+query getJobData($id: ID!)  {
+  job(where: {id: $id }) {
+   category
     company
     id
     jobTitle
     citys
     companyDescription
     cooprationType
-    description{
-      html
-    }
+    description
     enCompany
     experience
     salary
+    sex
+    militaryService
+    technology
+    degree
   }
 }
 `

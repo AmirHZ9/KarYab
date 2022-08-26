@@ -1,17 +1,16 @@
 import { useQuery } from "@apollo/client";
-import JobsList from "./JobsList";
 import { Grid, Typography, Container, Avatar } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router";
 import { getJobData } from "../../graphql/query";
-import ApartmentIcon from '@mui/icons-material/Apartment';
+import ApartmentIcon from "@mui/icons-material/Apartment";
 export default function ShowJob() {
   const params = useParams();
-  const slugs = params.slug;
+  const id = params.id;
   const { data } = useQuery(getJobData, {
-    variables: { slugs },
+    variables: { id },
   });
- 
+
   if (!data) return <h1>loading</h1>;
   const {
     company,
@@ -24,26 +23,32 @@ export default function ShowJob() {
     jobTitle,
     experience,
     salary,
+    sex,
+    militaryService,
+    degree,
+    technology,
   } = data.job;
+  const technologgies = technology.split(",");
+  const militaries = militaryService.split(",");
   return (
     <Container>
-   
-      <Grid Container  mb={3}  borderRadius="10px"  bgcolor="white" p={3}>
-        <Grid item display="flex"    alignItems="center">
-          <Avatar sx={{width:"80px",height:"70px"}}><ApartmentIcon/></Avatar>
+      {/* // * company details */}
+      <Grid Container mb={3} borderRadius="10px" bgcolor="white" p={3}>
+        <Grid item display="flex" alignItems="center">
+          <Avatar sx={{ width: "80px", height: "70px" }}>
+            <ApartmentIcon />
+          </Avatar>
           <Typography component="p" variant="p" marginRight="10px">
             {company} | {enCompany}
           </Typography>
         </Grid>
-     
       </Grid>
-
-
       {/* // ? job Details */}
       <Grid container bgcolor="white" borderRadius="10px" mb={2}>
         <Grid item xs={12} p={3} borderBottom="1px dotted silver">
-          <Typography component="p" variant="p" fontSize="25px"color="#555">{jobTitle}</Typography>
-          
+          <Typography component="p" variant="p" fontSize="25px" color="#555">
+            {jobTitle}
+          </Typography>
         </Grid>
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
@@ -153,7 +158,7 @@ export default function ShowJob() {
             color="#555555"
             fontSize="15px"
           >
-            <div dangerouslySetInnerHTML={{ __html: description.html }}></div>
+            {description}
           </Typography>
         </Grid>
 
@@ -183,18 +188,23 @@ export default function ShowJob() {
             مهارت ها مورد نیاز
           </Typography>
           <br />
-          <Typography
-            component="p"
-            variant="p"
-            bgcolor="#555555"
-            color="white"
-            padding="0 8px"
-            borderRadius="3px"
-            fontSize="13px"
-            display="inline-block"
-          >
-            مهم نیست
-          </Typography>
+
+          {technologgies.map((item) => (
+            <Typography
+              component="p"
+              variant="p"
+              bgcolor="#555555"
+              color="white"
+              padding="0 8px"
+              borderRadius="3px"
+              fontSize="13px"
+              display="inline-block"
+              margin="1px"
+              key={item}
+            >
+              {item}
+            </Typography>
+          ))}
         </Grid>
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
@@ -211,7 +221,7 @@ export default function ShowJob() {
             fontSize="13px"
             display="inline-block"
           >
-            مهم نیست
+            {sex}
           </Typography>
         </Grid>
         <Grid item xs={6} p={3}>
@@ -219,18 +229,21 @@ export default function ShowJob() {
             وضعیت نظام وظیفه
           </Typography>
           <br />
-          <Typography
-            component="p"
-            variant="p"
-            bgcolor="#555555"
-            color="white"
-            padding="0 8px"
-            borderRadius="3px"
-            fontSize="13px"
-            display="inline-block"
-          >
-            مهم نیست
-          </Typography>
+          {militaries.map((item) => (
+            <Typography
+              component="p"
+              variant="p"
+              bgcolor="#555555"
+              color="white"
+              padding="0 8px"
+              borderRadius="3px"
+              fontSize="13px"
+              display="inline-block"
+              margin="1px"
+            >
+              {item}
+            </Typography>
+          ))}
         </Grid>
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
@@ -247,7 +260,7 @@ export default function ShowJob() {
             fontSize="13px"
             display="inline-block"
           >
-            مهم نیست
+            {degree}
           </Typography>
         </Grid>
       </Grid>
