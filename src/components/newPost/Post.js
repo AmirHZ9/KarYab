@@ -23,14 +23,19 @@ import {
   Box,
 } from "@mui/material";
 import RTL from "../../Shared/RTl";
-
+import "../../styles/richText.css";
 //! toastify
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+//? richTExteditor
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 export default function Post() {
   const [cooprationType, setCooprationType] = useState([]);
   const [military, setMilitary] = useState([]);
+  const [description, setDescription] = useState("");
   const [technology, setTechnology] = useState([]);
   const [sendData, setSendData] = useState(true);
   const [error, setError] = useState({});
@@ -39,7 +44,6 @@ export default function Post() {
     company: "",
     enCompany: "",
     jobTitle: "",
-    description: "",
     category: "",
     companyDescription: "",
     experience: "",
@@ -57,11 +61,11 @@ export default function Post() {
       enCompany: postData.enCompany,
       jobTitle: postData.jobTitle,
       cooprationType: cooprationType.toString(),
-      description: postData.description,
+      description: description,
       category: postData.category,
       companyDescription: postData.companyDescription,
       experience: postData.experience,
-      slugs: postData.enCompany.replace(/\s/g, '').toLowerCase(),
+      slugs: postData.enCompany.replace(/\s/g, "").toLowerCase(),
       citys: postData.citys,
       degree: postData.degree,
       militaryService: military.toString(),
@@ -69,12 +73,14 @@ export default function Post() {
       sex: postData.sex,
       technology: technology.toString(),
     },
-
   });
   //!UseEffect
   useEffect(() => {
-    setError(validation(postData, cooprationType, military, technology));
+    setError(
+      validation(postData, cooprationType, military, technology)
+    );
   }, [postData, cooprationType]);
+  
 
   //!ChangeHandler
   const changeHandler = (event) => {
@@ -153,7 +159,6 @@ export default function Post() {
     navigate(path);
     setSendData(false);
   }
-
   return (
     <RTL>
       <Container maxWidth="lg">
@@ -235,6 +240,7 @@ export default function Post() {
               )}
             </Box>
           </Grid>
+
           <Grid item xs={12} md={6}>
             <TextField
               label=" استان"
@@ -246,7 +252,7 @@ export default function Post() {
               onFocus={focusHandler}
             />
             <Box>
-              {error.enCompany && focus.enCompany && (
+              {error.citys && focus.citys && (
                 <Typography
                   component="p"
                   variant="p"
@@ -255,11 +261,12 @@ export default function Post() {
                   alignItems="center"
                 >
                   {" "}
-                  {error.enCompany}
+                  {error.citys}
                 </Typography>
               )}
             </Box>
           </Grid>
+
           <Grid item xs={12} md={6}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">حوزه کاری</InputLabel>
@@ -292,6 +299,7 @@ export default function Post() {
               )}
             </Box>
           </Grid>
+
           <Grid item xs={12} md={6}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">
@@ -472,7 +480,7 @@ export default function Post() {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <FormControl sx={{ width: "100%" ,}}>
+            <FormControl sx={{ width: "100%" }}>
               <InputLabel id="demo-multiple-name-label">
                 مهارت های مورد نیاز
               </InputLabel>
@@ -485,7 +493,6 @@ export default function Post() {
                 label="مهارت های مورد نیاز"
                 name="technology"
                 multiple
-               
               >
                 {techList.map((type) => (
                   <MenuItem key={type} value={type}>
@@ -509,6 +516,7 @@ export default function Post() {
               )}
             </Box>
           </Grid>
+
           <Grid item xs={12} md={6}>
             <FormControl sx={{ width: "100%" }}>
               <InputLabel id="demo-multiple-name-label">حداقل حقوق</InputLabel>
@@ -542,20 +550,39 @@ export default function Post() {
               )}
             </Box>
           </Grid>
+
           <Grid item xs={12}>
-            <TextField
-              label="شرح موقعیت شغلی"
-              variant="outlined"
-              sx={{ width: "100%" }}
-              onFocus={focusHandler}
-              onChange={changeHandler}
-              multiline
-              name="description"
-              minRows={4}
-              value={postData.description}
-            />
+            <Typography
+              variant="p"
+              component="p"
+              color="#555"
+              sx={{ margin: "5px 0" }}
+            >
+              شرح موقعیت شغلی
+            </Typography>
+
+            <div className="editor">
+              <CKEditor
+                editor={ClassicEditor}
+                data={description}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  setDescription(data);
+                }}
+               
+              onFocus={() => {
+                setFocus(
+                  {
+                    ...focus,'description':true
+                  }
+                )
+              }}
+                
+                name="description"
+              />
+            </div>
             <Box>
-              {error.description && focus.description && (
+              {error.description &&  (
                 <Typography
                   component="p"
                   variant="p"
@@ -563,7 +590,6 @@ export default function Post() {
                   display="flex"
                   alignItems="center"
                 >
-                  {" "}
                   {error.description}
                 </Typography>
               )}

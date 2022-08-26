@@ -1,4 +1,4 @@
-const validation = (data, cooprationType,military,technology) => {
+const validation = (data, cooprationType,military,technology,description) => {
   const error = {};
 
   //companyFa
@@ -19,13 +19,6 @@ const validation = (data, cooprationType,military,technology) => {
     error.jobTitle = "عنوان شغل باید وارد شود.";
   } else {
     delete error.jobTitle;
-  }
-
-  //description
-  if (!data.description.trim()) {
-    error.description = "توضیحاتی برای موقعیت شغلی وارد کنید.";
-  } else {
-    delete error.description;
   }
 
   //category
@@ -67,6 +60,12 @@ const validation = (data, cooprationType,military,technology) => {
     error.sex = "جنسیت را مشخص کنید.";
   } else {
     delete error.sex;
+  }
+  // citys
+  if (!data.citys.trim()) {
+    error.citys = "استان را مشخص کنید.";
+  } else {
+    delete error.citys;
   }
   // technology
   if (!technology.length) {

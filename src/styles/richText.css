@@ -1,0 +1,8 @@
+.ck{
+    font-family: yekan !important;
+    direction: rtl !important;
+}
+.ck.ck-editor__editable_inline[dir="ltr"] {
+    text-align: right !important;
+    background-color: transparent !important;
+  }

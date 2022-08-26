@@ -8,9 +8,9 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 export default function JobsList() {
-  const { data, loading, error } = useQuery(getJobs);
+  const { data } = useQuery(getJobs);
 
-  console.log(data);
+
   if (!data) return <h1>loading</h1>;
   return (
     <Grid container>

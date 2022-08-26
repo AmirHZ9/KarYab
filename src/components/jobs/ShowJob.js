@@ -4,9 +4,11 @@ import React from "react";
 import { useParams } from "react-router";
 import { getJobData } from "../../graphql/query";
 import ApartmentIcon from "@mui/icons-material/Apartment";
+import parse from 'html-react-parser';
 export default function ShowJob() {
   const params = useParams();
   const id = params.id;
+  
   const { data } = useQuery(getJobData, {
     variables: { id },
   });
@@ -60,7 +62,7 @@ export default function ShowJob() {
             variant="p"
             bgcolor="#555555"
             color="white"
-            padding="0 8px"
+            padding="5px 8px"
             borderRadius="3px"
             fontSize="13px"
             display="inline-block"
@@ -78,7 +80,7 @@ export default function ShowJob() {
             variant="p"
             bgcolor="#555555"
             color="white"
-            padding="0 8px"
+            padding="5px 8px"
             borderRadius="3px"
             fontSize="13px"
             display="inline-block"
@@ -96,7 +98,7 @@ export default function ShowJob() {
             variant="p"
             bgcolor="#555555"
             color="white"
-            padding="0 8px"
+            padding="5px 8px"
             borderRadius="3px"
             fontSize="13px"
             display="inline-block"
@@ -114,7 +116,7 @@ export default function ShowJob() {
             variant="p"
             bgcolor="#555555"
             color="white"
-            padding="0 8px"
+            padding="5px 8px"
             borderRadius="3px"
             fontSize="13px"
             display="inline-block"
@@ -132,7 +134,7 @@ export default function ShowJob() {
             variant="p"
             bgcolor="#555555"
             color="white"
-            padding="0 8px"
+            padding="5px 8px"
             borderRadius="3px"
             fontSize="13px"
             display="inline-block"
@@ -158,7 +160,9 @@ export default function ShowJob() {
             color="#555555"
             fontSize="15px"
           >
-            {description}
+            {
+              parse(description)
+            } 
           </Typography>
         </Grid>
 
@@ -195,7 +199,7 @@ export default function ShowJob() {
               variant="p"
               bgcolor="#555555"
               color="white"
-              padding="0 8px"
+              padding="5px 8px"
               borderRadius="3px"
               fontSize="13px"
               display="inline-block"
@@ -216,7 +220,7 @@ export default function ShowJob() {
             variant="p"
             bgcolor="#555555"
             color="white"
-            padding="0 8px"
+            padding="5px 8px"
             borderRadius="3px"
             fontSize="13px"
             display="inline-block"
@@ -235,7 +239,7 @@ export default function ShowJob() {
               variant="p"
               bgcolor="#555555"
               color="white"
-              padding="0 8px"
+              padding="5px 8px"
               borderRadius="3px"
               fontSize="13px"
               display="inline-block"
@@ -255,7 +259,7 @@ export default function ShowJob() {
             variant="p"
             bgcolor="#555555"
             color="white"
-            padding="0 8px"
+            padding="5px 8px"
             borderRadius="3px"
             fontSize="13px"
             display="inline-block"
