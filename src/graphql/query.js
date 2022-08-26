@@ -6,13 +6,8 @@ query MyQuery {
     category
     citys
     company
-    companyDescription
     cooprationType
-    description
-    enCompany
-    experience
     jobTitle
-    salary
     id
     slugs
   }
