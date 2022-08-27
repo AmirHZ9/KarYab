@@ -1,0 +1,8 @@
+.showjob{
+
+}
+@media screen and (max-width:900px) {
+    .showJob{
+        display: none !important;
+    }
+}

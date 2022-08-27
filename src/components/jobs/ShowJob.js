@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { getJobData } from "../../graphql/query";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import parse from 'html-react-parser';
+import Loader from "../Loader/Loader";
 export default function ShowJob() {
   const params = useParams();
   const id = params.id;
@@ -13,7 +14,7 @@ export default function ShowJob() {
     variables: { id },
   });
 
-  if (!data) return <h1>loading</h1>;
+  if (!data) return <Loader/>;
   const {
     company,
     enCompany,
@@ -52,6 +53,7 @@ export default function ShowJob() {
             {jobTitle}
           </Typography>
         </Grid>
+
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
             دسته بندی شغلی
@@ -70,6 +72,7 @@ export default function ShowJob() {
             {category}
           </Typography>
         </Grid>
+
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
             موقعیت مکانی
@@ -88,6 +91,7 @@ export default function ShowJob() {
             {citys}
           </Typography>
         </Grid>
+        
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
             نوع همکاری
@@ -106,6 +110,7 @@ export default function ShowJob() {
             {cooprationType}
           </Typography>
         </Grid>
+
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
             حداقل سابقه کار
@@ -124,6 +129,7 @@ export default function ShowJob() {
             {experience}
           </Typography>
         </Grid>
+
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
             حقوق
@@ -142,6 +148,7 @@ export default function ShowJob() {
             {salary}
           </Typography>
         </Grid>
+
         <Grid item xs={12} p={3}>
           <Typography
             componene="p"
@@ -187,6 +194,7 @@ export default function ShowJob() {
             {companyDescription}
           </Typography>
         </Grid>
+
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
             مهارت ها مورد نیاز
@@ -210,6 +218,7 @@ export default function ShowJob() {
             </Typography>
           ))}
         </Grid>
+
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
             جنسیت
@@ -228,6 +237,7 @@ export default function ShowJob() {
             {sex}
           </Typography>
         </Grid>
+
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
             وضعیت نظام وظیفه
@@ -244,11 +254,13 @@ export default function ShowJob() {
               fontSize="13px"
               display="inline-block"
               margin="1px"
+              keu={item}
             >
               {item}
             </Typography>
           ))}
         </Grid>
+
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
             حداقل مدرک تحصیلی

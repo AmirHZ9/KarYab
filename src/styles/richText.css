@@ -1,8 +1,20 @@
-.ck{
-    font-family: yekan !important;
-    direction: rtl !important;
+.ck {
+  font-family: yekan !important;
+  direction: rtl !important;
+}
+.ck-content {
+  min-height: 100px;
 }
 .ck.ck-editor__editable_inline[dir="ltr"] {
-    text-align: right !important;
-    background-color: transparent !important;
-  }
+  background-color: transparent !important;
+  text-align: right !important;
+}
+
+.ck-toolbar__items {
+  display: flex !important;
+  flex-wrap: wrap !important;
+}
+
+ .MuiMenu-list	{
+    max-height: 150px !important;
+}

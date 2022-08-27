@@ -20,6 +20,16 @@ const techList = [
   "PHP",
   "LARAVEL",
   "GIT",
+  'WORDPRESS',
+  'PYTHON',
+  'DJANGO',
+  '.NET',
+  'C++',
+  'C#',
+  'GO',
+  'FLUTTER',
+  'SWIFT',
+  
 ];
 const types = ["دورکاری", "تمام وقت", "حضوری", "پاره وقت"];
 const militaryList = ["مهم نیست", "پایان خدمت", "معافیت دائم", "معافیت تحصیلی"]

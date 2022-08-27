@@ -74,13 +74,11 @@ export default function Post() {
       technology: technology.toString(),
     },
   });
+
   //!UseEffect
   useEffect(() => {
-    setError(
-      validation(postData, cooprationType, military, technology)
-    );
+    setError(validation(postData, cooprationType, military, technology));
   }, [postData, cooprationType]);
-  
 
   //!ChangeHandler
   const changeHandler = (event) => {
@@ -117,6 +115,7 @@ export default function Post() {
       });
     }
   };
+
   //!focusHandler
   const focusHandler = (event) => {
     setFocus({
@@ -124,6 +123,7 @@ export default function Post() {
       [event.target.name]: true,
     });
   };
+
   //! sendhandler
   const navigate = useNavigate();
   const sendHandler = (event) => {
@@ -153,12 +153,27 @@ export default function Post() {
       toast.error(".تمامی فیلدها باید پر شوند");
     }
   };
+
+  //? successToastify
   if (data && sendData) {
     toast.success("ارسال شد");
     const path = "/confirmation";
     navigate(path);
     setSendData(false);
   }
+
+  //* englishHanlder keyboard
+  const englishHandler = (e) => {
+    var regex = new RegExp("^[a-zA-Z0-9 ]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+        return true;
+    }
+    e.preventDefault();
+    return false;
+  };
+
+
   return (
     <RTL>
       <Container maxWidth="lg">
@@ -224,6 +239,7 @@ export default function Post() {
               name="enCompany"
               onChange={changeHandler}
               onFocus={focusHandler}
+              onKeyPress={englishHandler}
             />
             <Box>
               {error.enCompany && focus.enCompany && (
@@ -493,12 +509,16 @@ export default function Post() {
                 label="مهارت های مورد نیاز"
                 name="technology"
                 multiple
+           
               >
+                
+
                 {techList.map((type) => (
-                  <MenuItem key={type} value={type}>
+                  <MenuItem       key={type} value={type}>
                     {type}
                   </MenuItem>
                 ))}
+               
               </Select>
             </FormControl>
             <Box>
@@ -530,9 +550,9 @@ export default function Post() {
                 name="salary"
               >
                 <MenuItem value="توافقی">توافقی</MenuItem>
-                <MenuItem value=" 5,000,000">5,000,000</MenuItem>
-                <MenuItem value="  10,000,000 ">10,000,000</MenuItem>
-                <MenuItem value=" 20,000,000 ">20,000,000</MenuItem>
+                <MenuItem value=" از5,000,000 ">  از 5,000,000 </MenuItem>
+                <MenuItem value="  از10,000,000 ">از 10,000,000 </MenuItem>
+                <MenuItem value=" از20,000,000 ">از 20,000,000 </MenuItem>
               </Select>
             </FormControl>
             <Box>
@@ -569,20 +589,17 @@ export default function Post() {
                   const data = editor.getData();
                   setDescription(data);
                 }}
-               
-              onFocus={() => {
-                setFocus(
-                  {
-                    ...focus,'description':true
-                  }
-                )
-              }}
-                
+                onFocus={() => {
+                  setFocus({
+                    ...focus,
+                    description: true,
+                  });
+                }}
                 name="description"
               />
             </div>
             <Box>
-              {error.description &&  (
+              {error.description && (
                 <Typography
                   component="p"
                   variant="p"

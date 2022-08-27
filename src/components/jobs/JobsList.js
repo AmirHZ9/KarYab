@@ -1,24 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { getJobs } from "../../graphql/query";
-import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Avatar, Box, Grid, Typography } from "@mui/material";
+import { Link,useNavigate } from "react-router-dom";
 import style from "../../styles/jobCard.module.css"
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
+import Loader from "../Loader/Loader";
 export default function JobsList() {
   const { data } = useQuery(getJobs);
+  const navigate = useNavigate()
+  const [isMobile,setIsMobile] = useState(false)
+  useEffect(()=>{
+    window.screen.width <= 900 ? setIsMobile(true) : setIsMobile(false)
+    if(window.innerWidth <= 900) setIsMobile(true)
+    
+  },[window.screen.width])
+  
+  const detectWindowSize=()=>{
+    window.innerWidth <= 900 ? setIsMobile(true):setIsMobile(false)
+    window.innerWidth <= 900 && navigate("/")
+  }
+  window.onresize = detectWindowSize;
 
 
-  if (!data) return <h1>loading</h1>;
+
+  if (!data) return <Loader/>
+ 
   return (
     <Grid container>
       {data.jobs.map((item) => (
         <Link
-          to={`/job/${item.slugs}/${item.id}`}
+          to={isMobile ?`/jobs/job/${item.slugs}/${item.id}`:`/jobs/${item.slugs}/${item.id}`}
           style={{ width: "100%", color: "black", textDecoration: "none" }}
           key={item.id}
+          
         >
           <Grid
             item

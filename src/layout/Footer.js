@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <div>
+    <>
 
         <Grid container>
           <Grid item xs={12} p={2} bgcolor="#1976D2" textAlign="center">
@@ -14,6 +14,6 @@ export default function Footer() {
           </Grid>
         </Grid>
 
-    </div>
+    </>
   );
 }
