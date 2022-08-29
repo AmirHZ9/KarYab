@@ -36,7 +36,7 @@ export default function ShowJob() {
   return (
     <Container>
       {/* // * company details */}
-      <Grid Container mb={3} borderRadius="10px" bgcolor="white" p={3}>
+      <Grid container mb={3} borderRadius="10px" bgcolor="white" p={3}>
         <Grid item display="flex" alignItems="center">
           <Avatar sx={{ width: "80px", height: "70px" }}>
             <ApartmentIcon />
@@ -254,7 +254,7 @@ export default function ShowJob() {
               fontSize="13px"
               display="inline-block"
               margin="1px"
-              keu={item}
+              key={item}
             >
               {item}
             </Typography>
