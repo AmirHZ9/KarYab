@@ -36,7 +36,7 @@ export default function ShowJob() {
   return (
     <Container>
       {/* // * company details */}
-      <Grid container mb={3} borderRadius="10px" bgcolor="white" p={3}>
+      <Grid container mb={3} borderRadius="10px" bgcolor="white" p={3} >
         <Grid item display="flex" alignItems="center">
           <Avatar sx={{ width: "80px", height: "70px" }}>
             <ApartmentIcon />
@@ -47,7 +47,7 @@ export default function ShowJob() {
         </Grid>
       </Grid>
       {/* // ? job Details */}
-      <Grid container bgcolor="white" borderRadius="10px" mb={2}>
+      <Grid container bgcolor="white" borderRadius="10px" mb={2} maxHeight="100vh" overflow='scroll'>
         <Grid item xs={12} p={3} borderBottom="1px dotted silver">
           <Typography component="p" variant="p" fontSize="25px" color="#555">
             {jobTitle}

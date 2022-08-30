@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import style from "../../styles/jobCard.module.css";
@@ -7,28 +7,26 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 export default function JobCard({ jobs }) {
   const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState();
 
+  const [size, setSize] = useState(0);
+  useLayoutEffect(() => {
+      size <= 900 && navigate('/')
+    function updateSize() {
+        
+      setSize(window.innerWidth);
+    }
 
-  useEffect(() => {
-   window.screen.width <= 900 ? setIsMobile(true) : setIsMobile(false);
-    window.innerWidth <= 900 ? setIsMobile(true) : setIsMobile(false)
-  }, [window.innerWidth]);
-
-  const detectWindowSize = () => {
-    window.innerWidth <= 900 ? setIsMobile(true) : setIsMobile(false);
-  
-  };
-  window.onresize = detectWindowSize;
-console.log(window.innerWidth)
-console.log(isMobile)
+    window.addEventListener("resize", updateSize);
+    updateSize();
+    return () => window.removeEventListener("resize", updateSize);
+  }, [size]);
 
 
   return (
     <Grid container>
       <Link
         to={
-          isMobile
+          size <= 900
             ? `/jobs/job/${jobs.slugs}/${jobs.id}`
             : `/jobs/${jobs.slugs}/${jobs.id}`
         }
