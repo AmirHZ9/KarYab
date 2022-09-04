@@ -13,8 +13,8 @@ export default function JobsList() {
 
   return (
     <Grid container>
-      {data.jobs.map((item) => (
-        <JobCard jobs={item} key={item.id} />
+      {data.jobs.map((item,index) => (
+        <JobCard jobs={item} index={index} key={item.id} />
       ))}
 
       <Grid item xs={12}>

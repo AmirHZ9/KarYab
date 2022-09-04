@@ -1,13 +1,17 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import style from "../../styles/jobCard.module.css";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
-export default function JobCard({ jobs }) {
-  const navigate = useNavigate();
+import { useQuery } from "@apollo/client";
+import { getJobs } from "../../graphql/query";
 
+import { isCardOpen } from "../../func/function";
+export default function JobCard({ jobs ,index}) {
+  const navigate = useNavigate();
+  const { data } = useQuery(getJobs);
   const [size, setSize] = useState(0);
   useLayoutEffect(() => {
       size <= 900 && navigate('/')
@@ -16,15 +20,19 @@ export default function JobCard({ jobs }) {
       setSize(window.innerWidth);
     }
 
+
     window.addEventListener("resize", updateSize);
     updateSize();
     return () => window.removeEventListener("resize", updateSize);
   }, [size]);
 
+ isCardOpen(window.location.pathname,data.jobs)
+
+// console.log(jobs)
 
   return (
     <Grid container>
-      <Link
+      <Link className={ jobs.id == isCardOpen(window.location.pathname,data.jobs) ? style.cardOpen : style.cardClose}
         to={
           size <= 900
             ? `/jobs/job/${jobs.slugs}/${jobs.id}`

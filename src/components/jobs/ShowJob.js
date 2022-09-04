@@ -6,6 +6,7 @@ import { getJobData } from "../../graphql/query";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import parse from 'html-react-parser';
 import Loader from "../Loader/Loader";
+import '../../styles/scrollBar.css'
 export default function ShowJob() {
   const params = useParams();
   const id = params.id;
@@ -47,7 +48,7 @@ export default function ShowJob() {
         </Grid>
       </Grid>
       {/* // ? job Details */}
-      <Grid container bgcolor="white" borderRadius="10px" mb={2} maxHeight="100vh" overflow='scroll'>
+      <Grid container className="jobDetail" bgcolor="white" borderRadius="10px" mb={2} maxHeight="100vh">
         <Grid item xs={12} p={3} borderBottom="1px dotted silver">
           <Typography component="p" variant="p" fontSize="25px" color="#555">
             {jobTitle}
