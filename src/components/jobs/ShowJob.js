@@ -1,21 +1,32 @@
 import { useQuery } from "@apollo/client";
-import { Grid, Typography, Container, Avatar } from "@mui/material";
-import React from "react";
+import { Grid, Typography, Container, Avatar, Button } from "@mui/material";
+import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { getJobData } from "../../graphql/query";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import parse from 'html-react-parser';
 import Loader from "../Loader/Loader";
 import '../../styles/scrollBar.css'
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+
+import { isInMarked } from "../../func/function";
+import { markJob,removeMark } from "../../redux/markJobCard/markAction";
+import { useDispatch, useSelector } from 'react-redux'
+
 export default function ShowJob() {
   const params = useParams();
   const id = params.id;
-  
+  const dispatch = useDispatch()
+  const markedJob = useSelector(state => state.markJobState.markJob)
+
   const { data } = useQuery(getJobData, {
     variables: { id },
   });
 
   if (!data) return <Loader/>;
+
+  console.log(  isInMarked(markedJob,data.job) )
+
   const {
     company,
     enCompany,
@@ -37,7 +48,7 @@ export default function ShowJob() {
   return (
     <Container>
       {/* // * company details */}
-      <Grid container mb={3} borderRadius="10px" bgcolor="white" p={3} >
+      <Grid container mb={3} borderRadius="10px" bgcolor="white" p={3} display="flex" justifyContent="space-between" alignItems="center">
         <Grid item display="flex" alignItems="center">
           <Avatar sx={{ width: "80px", height: "70px" }}>
             <ApartmentIcon />
@@ -46,6 +57,16 @@ export default function ShowJob() {
             {company} | {enCompany}
           </Typography>
         </Grid>
+        <Grid item >
+          {
+            isInMarked(markedJob,data.job) ? <Button variant="outlined" onClick={()=>dispatch(removeMark(data.job))}>
+            نشان شده <StarBorderIcon color="warning"/>   
+           </Button> : <Button variant="outlined" onClick={()=>dispatch(markJob(data.job))}>
+           نشان کردن <StarBorderIcon/>   
+          </Button>
+          }
+         
+          </Grid>
       </Grid>
       {/* // ? job Details */}
       <Grid container className="jobDetail" bgcolor="white" borderRadius="10px" mb={2} maxHeight="100vh">

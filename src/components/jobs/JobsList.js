@@ -4,8 +4,7 @@ import { getJobs } from "../../graphql/query";
 import { Grid  } from "@mui/material";
 import Loader from "../Loader/Loader";
 import Paginating from "../paginating/Paginating";
-import JobCard from "./JobCard";
-
+import JobCard from "../shared/JobCard"
 export default function JobsList() {
   const { data } = useQuery(getJobs);
 

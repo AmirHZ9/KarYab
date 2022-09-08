@@ -24,7 +24,7 @@ export default function Header() {
                 <Link to="/">فرصت های شغلی</Link>
               </Box>
               <Box component="li" margin="0 20px">
-                <Link to="">محصولات</Link>
+                <Link to="/marked">نشان شده</Link>
               </Box>
               <Box component="li" margin="0 20px">
                 <Link to="">فرصت های شغلی پیشنهادی</Link>
