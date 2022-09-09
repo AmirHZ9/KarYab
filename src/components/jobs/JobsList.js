@@ -1,10 +1,14 @@
 import React from "react";
+// graghql
 import { useQuery } from "@apollo/client";
 import { getJobs } from "../../graphql/query";
-import { Grid  } from "@mui/material";
+// style
+import { Grid } from "@mui/material";
 import Loader from "../Loader/Loader";
+// pagination
 import Paginating from "../paginating/Paginating";
-import JobCard from "../shared/JobCard"
+// component
+import JobCard from "../shared/JobCard";
 export default function JobsList() {
   const { data } = useQuery(getJobs);
 
@@ -12,7 +16,7 @@ export default function JobsList() {
 
   return (
     <Grid container>
-      {data.jobs.map((item,index) => (
+      {data.jobs.map((item, index) => (
         <JobCard jobs={item} index={index} key={item.id} />
       ))}
 

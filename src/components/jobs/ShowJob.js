@@ -1,15 +1,17 @@
-import { useQuery } from "@apollo/client";
-import { Grid, Typography, Container, Avatar, Button } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router";
+// graghql
+import { useQuery } from "@apollo/client";
 import { getJobData } from "../../graphql/query";
-import ApartmentIcon from "@mui/icons-material/Apartment";
-import parse from "html-react-parser";
+// styles
+import { Grid, Typography, Container, Avatar, Button } from "@mui/material";
 import Loader from "../Loader/Loader";
-import "../../styles/scrollBar.css";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-
+import "../../styles/scrollBar.css";
+// function
 import { isInMarked } from "../../func/function";
+import parse from "html-react-parser";
+// redux
 import { markJob, removeMark } from "../../redux/markJobCard/markAction";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -46,38 +48,41 @@ export default function ShowJob() {
   return (
     <Container>
       {/* // * company details */}
-      <Grid
-        container
-        mb={3}
-        borderRadius="10px"
-        bgcolor="white"
-        p={3}
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Grid item display="flex" alignItems="center">
-          <Avatar sx={{ width: "80px", height: "70px" }}>
-            <ApartmentIcon />
-          </Avatar>
-          <Typography component="p" variant="p" marginRight="10px">
+      <Grid container mb={3} borderRadius="10px" bgcolor="white" p={3}>
+        <Grid item xs={8}>
+          <Typography
+            component="p"
+            variant="p"
+            fontSize="25px"
+            color="#555"
+            mb={3}
+          >
+            {jobTitle}
+          </Typography>
+        </Grid>
+        <Grid item xs={4} textAlign="left">
+          <Button variant="contained" sx={{ fontWeight: 700 }}>
+            ارسال رزومه
+          </Button>
+        </Grid>
+        <Grid item xs={10}>
+          <Typography
+            component="p"
+            variant="p"
+            marginRight="10px"
+            color="primary"
+          >
             {company} | {enCompany}
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid item xs={2} textAlign="left">
           {isInMarked(markedJob, data.job) ? (
-            <Button
-              variant="outlined"
-              onClick={() => dispatch(removeMark(data.job))}
-            >
-              نشان شده <StarBorderIcon color="warning" />
+            <Button onClick={() => dispatch(removeMark(data.job))}>
+              <StarBorderIcon color="warning" />
             </Button>
           ) : (
-            <Button
-              variant="outlined"
-              onClick={() => dispatch(markJob(data.job))}
-            >
-              نشان کردن <StarBorderIcon />
+            <Button onClick={() => dispatch(markJob(data.job))}>
+              <StarBorderIcon />
             </Button>
           )}
         </Grid>
@@ -93,7 +98,7 @@ export default function ShowJob() {
       >
         <Grid item xs={12} p={3} borderBottom="1px dotted silver">
           <Typography component="p" variant="p" fontSize="25px" color="#555">
-            {jobTitle}
+            شرح موقعیت شغلی
           </Typography>
         </Grid>
 

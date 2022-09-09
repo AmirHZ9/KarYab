@@ -5,16 +5,12 @@ const isCardOpen = (url, state) => {
     return state[result].id;
   }
 };
-
-
-const isInMarked = (state,job) =>{
-   const index = (state.findIndex(item => item.id === job.id))
-   if(index !== -1){
-     console.log('true')
-     return true
-    }else{
-    console.log('false')
-    return false
+const isInMarked = (state, job) => {
+  const index = state.findIndex((item) => item.id === job.id);
+  if (index !== -1) {
+    return true;
+  } else {
+    return false;
   }
-}
-export { isCardOpen ,isInMarked};
+};
+export { isCardOpen, isInMarked };

@@ -9,30 +9,31 @@ import { useQuery } from "@apollo/client";
 import { getJobs } from "../../graphql/query";
 
 import { isCardOpen } from "../../func/function";
-export default function JobCard({ jobs ,index}) {
+export default function JobCard({ jobs }) {
   const navigate = useNavigate();
   const { data } = useQuery(getJobs);
   const [size, setSize] = useState(0);
   useLayoutEffect(() => {
-      size <= 900 && navigate('/')
+    size <= 900 && navigate("/");
     function updateSize() {
-        
       setSize(window.innerWidth);
     }
-
 
     window.addEventListener("resize", updateSize);
     updateSize();
     return () => window.removeEventListener("resize", updateSize);
   }, [size]);
 
- isCardOpen(window.location.pathname,data.jobs)
-
-// console.log(jobs)
+  isCardOpen(window.location.pathname, data.jobs);
 
   return (
     <Grid container>
-      <Link className={ jobs.id == isCardOpen(window.location.pathname,data.jobs) ? style.cardOpen : style.cardClose}
+      <Link
+        className={
+          jobs.id == isCardOpen(window.location.pathname, data.jobs)
+            ? style.cardOpen
+            : style.cardClose
+        }
         to={
           size <= 900
             ? `/jobs/job/${jobs.slugs}/${jobs.id}`
