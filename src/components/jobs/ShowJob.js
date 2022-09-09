@@ -4,28 +4,26 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { getJobData } from "../../graphql/query";
 import ApartmentIcon from "@mui/icons-material/Apartment";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 import Loader from "../Loader/Loader";
-import '../../styles/scrollBar.css'
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import "../../styles/scrollBar.css";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 import { isInMarked } from "../../func/function";
-import { markJob,removeMark } from "../../redux/markJobCard/markAction";
-import { useDispatch, useSelector } from 'react-redux'
+import { markJob, removeMark } from "../../redux/markJobCard/markAction";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ShowJob() {
   const params = useParams();
   const id = params.id;
-  const dispatch = useDispatch()
-  const markedJob = useSelector(state => state.markJobState.markJob)
+  const dispatch = useDispatch();
+  const markedJob = useSelector((state) => state.markJobState.markJob);
 
   const { data } = useQuery(getJobData, {
     variables: { id },
   });
 
-  if (!data) return <Loader/>;
-
-  console.log(  isInMarked(markedJob,data.job) )
+  if (!data) return <Loader />;
 
   const {
     company,
@@ -48,7 +46,16 @@ export default function ShowJob() {
   return (
     <Container>
       {/* // * company details */}
-      <Grid container mb={3} borderRadius="10px" bgcolor="white" p={3} display="flex" justifyContent="space-between" alignItems="center">
+      <Grid
+        container
+        mb={3}
+        borderRadius="10px"
+        bgcolor="white"
+        p={3}
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+      >
         <Grid item display="flex" alignItems="center">
           <Avatar sx={{ width: "80px", height: "70px" }}>
             <ApartmentIcon />
@@ -57,19 +64,33 @@ export default function ShowJob() {
             {company} | {enCompany}
           </Typography>
         </Grid>
-        <Grid item >
-          {
-            isInMarked(markedJob,data.job) ? <Button variant="outlined" onClick={()=>dispatch(removeMark(data.job))}>
-            نشان شده <StarBorderIcon color="warning"/>   
-           </Button> : <Button variant="outlined" onClick={()=>dispatch(markJob(data.job))}>
-           نشان کردن <StarBorderIcon/>   
-          </Button>
-          }
-         
-          </Grid>
+        <Grid item>
+          {isInMarked(markedJob, data.job) ? (
+            <Button
+              variant="outlined"
+              onClick={() => dispatch(removeMark(data.job))}
+            >
+              نشان شده <StarBorderIcon color="warning" />
+            </Button>
+          ) : (
+            <Button
+              variant="outlined"
+              onClick={() => dispatch(markJob(data.job))}
+            >
+              نشان کردن <StarBorderIcon />
+            </Button>
+          )}
+        </Grid>
       </Grid>
       {/* // ? job Details */}
-      <Grid container className="jobDetail" bgcolor="white" borderRadius="10px" mb={2} maxHeight="100vh">
+      <Grid
+        container
+        className="jobDetail"
+        bgcolor="white"
+        borderRadius="10px"
+        mb={2}
+        maxHeight="100vh"
+      >
         <Grid item xs={12} p={3} borderBottom="1px dotted silver">
           <Typography component="p" variant="p" fontSize="25px" color="#555">
             {jobTitle}
@@ -113,7 +134,7 @@ export default function ShowJob() {
             {citys}
           </Typography>
         </Grid>
-        
+
         <Grid item xs={6} p={3}>
           <Typography componene="p" variant="p">
             نوع همکاری
@@ -189,9 +210,7 @@ export default function ShowJob() {
             color="#555555"
             fontSize="15px"
           >
-            {
-              parse(description)
-            } 
+            {parse(description)}
           </Typography>
         </Grid>
 

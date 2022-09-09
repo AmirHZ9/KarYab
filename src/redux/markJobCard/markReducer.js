@@ -10,7 +10,7 @@ const markReducer = (state = initialState, action) => {
 console.log(state)
       return {
         ...state,
-        markJob: state.markJob,
+        markJob: [...state.markJob],
       };
       case "remove_mark":
           const newMarkJobs = state.markJob.filter(item=> item.id !== action.payload.id)
